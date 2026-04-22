@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NexusChat — Next-generation team collaboration platform.">
+    <title>NexusChat — Next-Gen Team Collaboration</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-environment">
+        <div class="bg-gradient"></div>
+        <div class="bg-orb bg-orb--1"></div>
+        <div class="bg-orb bg-orb--2"></div>
+        <div class="bg-orb bg-orb--3"></div>
+        <div class="bg-orb bg-orb--4"></div>
+        <div class="bg-grid"></div>
+        <div class="bg-noise"></div>
+        <div class="light-streak light-streak--1"></div>
+        <div class="light-streak light-streak--2"></div>
+        <div class="light-streak light-streak--3"></div>
+    </div>
+
+    <!-- ===== AUTH SCREENS ===== -->
+    <div id="auth-screen" class="auth-screen">
+        <div id="login-view" class="auth-card glass-panel">
+            <div class="auth-card__logo">
+                <img src="logo.png" alt="NexusChat" class="auth-logo-img">
+                <h1 class="auth-brand">Nexus<span>Chat</span></h1>
+                <p class="auth-tagline">Next-generation team collaboration</p>
+            </div>
+            <form id="login-form" class="auth-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <div class="form-input-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <input type="email" id="login-email" placeholder="you@company.com" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="form-input-wrap">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                        <button type="button" class="password-toggle" data-target="login-password" title="Show password">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn--primary btn--full glow-btn">Sign In</button>
+                <div class="auth-divider"><span>or</span></div>
+                <button type="button" class="btn btn--ghost btn--full" id="goto-signup">Create an account</button>
+            </form>
+            <p class="auth-footer">By signing in you agree to our <a href="#">Terms</a> & <a href="#">Privacy</a></p>
+        </div>
+
+        <div id="signup-view" class="auth-card glass-panel" style="display:none;">
+            <div class="auth-card__logo">
+                <img src="logo.png" alt="NexusChat" class="auth-logo-img">
+                <h1 class="auth-brand">Nexus<span>Chat</span></h1>
+                <p class="auth-tagline">Create your account</p>
+            </div>
+            <form id="signup-form" class="auth-form" autocomplete="off">
+                <div class="avatar-upload-section">
+                    <div class="avatar-upload" id="avatar-upload-area">
+                        <img id="avatar-preview" src="" alt="" style="display:none;">
+                        <div class="avatar-upload__placeholder" id="avatar-placeholder">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
+                        <div class="avatar-upload__overlay">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                        </div>
+                        <input type="file" id="avatar-input" accept="image/*" hidden>
+                    </div>
+                    <span class="avatar-upload__label">Upload photo</span>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="signup-firstname">First Name</label>
+                        <div class="form-input-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <input type="text" id="signup-firstname" placeholder="Alex" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-lastname">Last Name</label>
+                        <div class="form-input-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <input type="text" id="signup-lastname" placeholder="Chen" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"><label for="signup-email">Email</label><div class="form-input-wrap">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <input type="email" id="signup-email" placeholder="you@company.com" required></div></div>
+                <div class="form-group"><label for="signup-password">Password</label><div class="form-input-wrap">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    <input type="password" id="signup-password" placeholder="Min 8 characters" required minlength="8">
+                    <button type="button" class="password-toggle" data-target="signup-password" title="Show password"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+                </div></div>
+                <div class="form-group"><label for="signup-role">Role</label><div class="form-input-wrap">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    <select id="signup-role" required>
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="Software Engineer">Software Engineer</option>
+                        <option value="Frontend Developer">Frontend Developer</option>
+                        <option value="Backend Developer">Backend Developer</option>
+                        <option value="Full Stack Developer">Full Stack Developer</option>
+                        <option value="UI/UX Designer">UI/UX Designer</option>
+                        <option value="Product Manager">Product Manager</option>
+                        <option value="Project Manager">Project Manager</option>
+                        <option value="DevOps Engineer">DevOps Engineer</option>
+                        <option value="QA Engineer">QA Engineer</option>
+                        <option value="Data Scientist">Data Scientist</option>
+                        <option value="Team Lead">Team Lead</option>
+                        <option value="CTO">CTO</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div></div>
+                <button type="submit" class="btn btn--primary btn--full glow-btn">Create Account</button>
+                <div class="auth-divider"><span>or</span></div>
+                <button type="button" class="btn btn--ghost btn--full" id="goto-login">Already have an account? Sign in</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== MAIN APP ===== -->
+    <div id="app" class="app-shell" style="display:none;">
+        <div class="mobile-header" id="mobile-header">
+            <button class="icon-btn" id="mobile-menu-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+            <div class="mobile-header__brand"><img src="logo.png" alt="" class="mobile-logo"><span>NexusChat</span></div>
+            <button class="icon-btn" id="mobile-profile-btn"><div class="avatar avatar--tiny" id="mobile-avatar"></div></button>
+        </div>
+        
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- Unified Sidebar (One Layout) -->
+        <aside id="sidebar" class="sidebar glass-panel">
+            <nav class="sidebar-nav-strip" id="nav-strip">
+                <div class="nav-strip__top">
+                    <div class="workspace-icon glow-neon"><img src="logo.png" alt=""></div>
+                    <div class="nav-divider"></div>
+                    <button id="nav-chat" class="nav-btn" title="Chat"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="nav-label">Chat</span></button>
+                    <button id="nav-activity" class="nav-btn nav-btn--active" title="Dashboard"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nav-label">Home</span></button>
+                    <button id="nav-inbox" class="nav-btn" title="Inbox" style="position:relative;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"/></svg><span class="nav-label">Inbox</span><span class="nav-badge" id="inbox-badge" style="display:none;">0</span></button>
+                    <button id="nav-tasks" class="nav-btn" title="Tasks"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="nav-label">Tasks</span></button>
+                    <button id="nav-members" class="nav-btn" title="People"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="nav-label">People</span></button>
+                </div>
+                <div class="nav-strip__bottom">
+                    <button id="nav-strip-toggle" class="nav-btn" title="Expand Menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg><span class="nav-label">Collapse</span></button>
+                    <button id="nav-settings" class="nav-btn" title="Settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="nav-label">Settings</span></button>
+                    <div class="avatar avatar--online profile-trigger" id="master-profile-avatar" style="width:32px;height:32px;"></div>
+                </div>
+            </nav>
+
+            <div class="sidebar-main-content">
+                <div class="sidebar__header">
+                    <div class="sidebar__title"><h3>Nexus Workspace</h3></div>
+                </div>
+
+                <div class="sidebar__search">
+                    <div class="search-box glass-panel-inner">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="text" id="global-search" placeholder="Search..." autocomplete="off">
+                    </div>
+                </div>
+
+                <nav class="sidebar__menu">
+                    <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-11.7 8.38 8.38 0 0 1 3.8.9L21 3z"/></svg><span>Threads</span></button>
+                    <button class="menu-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Drafts</span></button>
+                </nav>
+
+                <div class="channel-list-scroller" id="channel-list-container"></div>
+
+                <div class="sidebar__footer">
+                    <div class="sidebar__user" id="sidebar-user-profile">
+                        <div class="avatar avatar--online" id="sidebar-avatar" style="width:28px;height:28px;"></div>
+                        <div class="user-info">
+                            <span class="user-name" id="sidebar-user-name" style="font-size:0.8rem;"></span>
+                        </div>
+                    </div>
+                    <button id="logout-btn" class="icon-btn" title="Sign Out" style="width:28px;height:28px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- DASHBOARD PANEL -->
+            <section id="panel-dashboard" class="panel panel--active">
+                <div class="dashboard-layout">
+                    <div class="welcome-banner glass-panel">
+                        <div class="welcome-banner__content">
+                            <h1 id="welcome-title">Welcome back!</h1>
+                            <p id="welcome-subtitle">Here's what's happening in your workspace today.</p>
+                        </div>
+                        <div class="welcome-banner__right">
+                            <div class="welcome-banner__time" id="dashboard-time"></div>
+                            <div class="welcome-banner__actions">
+                                <button class="btn btn--primary glow-btn btn--small" id="dash-quick-msg"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> New Message</button>
+                                <button class="btn btn--ghost btn--small" id="dash-quick-task"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> New Task</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dash-stats-row">
+                        <div class="stat-card glass-panel-inner">
+                            <div class="stat-card__icon stat-card__icon--cyan"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                            <div class="stat-card__data"><span class="stat-number" id="stat-channels">0</span><span class="stat-label">Channels</span></div>
+                        </div>
+                        <div class="stat-card glass-panel-inner">
+                            <div class="stat-card__icon stat-card__icon--purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+                            <div class="stat-card__data"><span class="stat-number" id="stat-tasks">0</span><span class="stat-label">Open Tasks</span></div>
+                        </div>
+                        <div class="stat-card glass-panel-inner">
+                            <div class="stat-card__icon stat-card__icon--pink"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+                            <div class="stat-card__data"><span class="stat-number" id="stat-members">0</span><span class="stat-label">Members</span></div>
+                        </div>
+                        <div class="stat-card glass-panel-inner">
+                            <div class="stat-card__icon stat-card__icon--green"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                            <div class="stat-card__data"><span class="stat-number" id="stat-done">0</span><span class="stat-label">Completed</span></div>
+                        </div>
+                    </div>
+                    <div class="dashboard-grid">
+                        <div class="dash-widget glass-panel-inner">
+                            <div class="widget-header">
+                                <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2" style="margin-right:8px"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>My Tasks</h3>
+                                <button class="btn btn--small btn--ghost" id="dash-new-task-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add</button>
+                            </div>
+                            <div class="widget-body" id="dash-my-tasks"></div>
+                        </div>
+                        <div class="dash-widget glass-panel-inner">
+                            <div class="widget-header" id="dash-comms-toggle" style="cursor:pointer">
+                                <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neon-purple)" stroke-width="2" style="margin-right:8px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Channels & DMs</h3>
+                                <svg class="toggle-icon" id="dash-comms-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="widget-body" id="dash-my-comms"></div>
+                        </div>
+                    </div>
+                    <div class="dash-activity glass-panel-inner">
+                        <div class="widget-header">
+                            <h3><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--neon-pink)" stroke-width="2" style="margin-right:8px"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Recent Activity</h3>
+                        </div>
+                        <div class="widget-body" id="dash-recent-activity"><p style="font-size:0.8rem;color:var(--text-tertiary)">No recent activity yet. Start chatting or create tasks!</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INBOX PANEL -->
+            <section id="panel-inbox" class="panel panel--inbox">
+                <div class="inbox-header"><h2>Inbox & Notifications</h2><button class="btn btn--ghost btn--small" id="clear-inbox-btn">Clear All</button></div>
+                <div class="inbox-list" id="inbox-list">
+                    <div class="empty-state"><img src="logo.png" alt="" class="empty-state__logo"><h3>You're all caught up!</h3><p>No new notifications at the moment.</p></div>
+                </div>
+            </section>
+
+            <!-- CHAT PANEL -->
+            <section id="panel-chat" class="panel panel--chat">
+                <div class="chat-layout">
+                    <div class="chat-main glass-panel">
+                        <div class="chat-main__header">
+                            <div class="chat-header__left">
+                                <button class="icon-btn channel-back-btn" id="channel-back-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+                                <span class="channel-hash-lg" id="chat-header-hash">#</span>
+                                <h3 id="current-channel-name">Select a conversation</h3>
+                                <span class="header-member-count" id="header-member-count"></span>
+                            </div>
+                            <div class="chat-header__right">
+                                <button class="icon-btn" id="start-channel-audio-btn" title="Audio Call"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 2.59 3.4z"/></svg></button>
+                                <button class="icon-btn" id="start-channel-call-btn" title="Video Call"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></button>
+                                <button class="icon-btn" id="channel-info-btn" title="Channel Info"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></button>
+                            </div>
+                        </div>
+                        <div class="chat-main__messages" id="messages-container">
+                            <div class="empty-state"><img src="logo.png" alt="" class="empty-state__logo"><h3>Welcome to <span class="text-gradient">NexusChat</span></h3><p>Create a channel or start a direct message to begin collaborating.</p></div>
+                        </div>
+                        <div class="file-preview-bar" id="file-preview-bar" style="display:none;"><div class="file-preview-items" id="file-preview-items"></div><button class="icon-btn" id="clear-files-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+                        <div class="chat-main__composer">
+                            <div class="composer glass-panel-inner">
+                                <button class="icon-btn" id="attach-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg></button>
+                                <input type="file" id="file-input" multiple accept="image/*,audio/*,video/*,.pdf,.doc,.docx,.txt,.zip" hidden>
+                                <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off">
+                                <div class="composer__actions">
+                                    <button class="icon-btn" id="emoji-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></button>
+                                    <button class="send-btn glow-btn" id="send-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="emoji-picker glass-panel" id="emoji-picker" style="display:none;">
+                            <div class="emoji-picker__header"><input type="text" id="emoji-search" placeholder="Search emoji..." autocomplete="off"></div>
+                            <div class="emoji-picker__tabs" id="emoji-tabs">
+                                <button class="emoji-tab emoji-tab--active" data-category="smileys">😀</button>
+                                <button class="emoji-tab" data-category="people">👋</button>
+                                <button class="emoji-tab" data-category="nature">🌿</button>
+                                <button class="emoji-tab" data-category="objects">💡</button>
+                                <button class="emoji-tab" data-category="symbols">❤️</button>
+                            </div>
+                            <div class="emoji-picker__grid" id="emoji-grid"></div>
+                        </div>
+                    </div>
+
+                    <!-- Channel Info Sidebar -->
+                    <div class="channel-info-panel glass-panel" id="channel-info-panel" style="display:none;">
+                        <div class="info-panel__header">
+                            <h3 id="info-panel-title">Channel Info</h3>
+                            <button class="icon-btn" id="close-info-panel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                        </div>
+                        <div class="info-panel__body">
+                            <div class="info-section">
+                                <h4>About</h4>
+                                <p id="info-panel-desc" class="info-desc">No description</p>
+                            </div>
+                            <div class="info-section">
+                                <div class="info-section__header">
+                                    <h4>Members <span id="info-member-count" class="member-count-badge">0</span></h4>
+                                    <button class="btn btn--small btn--ghost" id="info-add-member-btn">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                        Add
+                                    </button>
+                                </div>
+                                <div class="info-members-list" id="info-members-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TASKS PANEL -->
+            <section id="panel-tasks" class="panel panel--tasks">
+                <div class="kanban-header"><div class="kanban-header__left"><h2>Task Board</h2></div><div class="kanban-header__right"><button class="btn btn--primary glow-btn" id="new-task-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Task</button></div></div>
+                <div class="kanban-board">
+                    <div class="kanban-column glass-panel" data-column="todo"><div class="kanban-column__header"><div class="column-indicator column-indicator--todo"></div><h3>To Do</h3><span class="column-count">0</span></div><div class="kanban-column__cards"><div class="kanban-empty-state"><p>No tasks yet</p></div></div></div>
+                    <div class="kanban-column glass-panel" data-column="inprogress"><div class="kanban-column__header"><div class="column-indicator column-indicator--inprogress"></div><h3>In Progress</h3><span class="column-count">0</span></div><div class="kanban-column__cards"><div class="kanban-empty-state"><p>No tasks in progress</p></div></div></div>
+                    <div class="kanban-column glass-panel" data-column="done"><div class="kanban-column__header"><div class="column-indicator column-indicator--done"></div><h3>Done</h3><span class="column-count">0</span></div><div class="kanban-column__cards"><div class="kanban-empty-state"><p>No completed tasks</p></div></div></div>
+                </div>
+            </section>
+
+            <!-- CALLS PANEL -->
+            <section id="panel-calls" class="panel panel--calls">
+                <div class="call-layout">
+                    <div class="call-header"><h3>Video Call</h3><span class="call-duration" id="call-duration"></span></div>
+                    <div class="video-grid" id="video-grid">
+                        <div class="call-empty-state" id="call-empty-state">
+                            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                            <h3>No Active Call</h3>
+                            <p>Start a call from any channel or direct message.</p>
+                        </div>
+                    </div>
+                    <div class="call-controls glass-panel" id="call-controls" style="display:none;">
+                        <button class="call-btn call-btn--active" id="btn-mic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
+                        <button class="call-btn call-btn--active" id="btn-camera"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></button>
+                        <button class="call-btn" id="btn-screenshare"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></button>
+                        <div class="call-controls__divider"></div>
+                        <button class="call-btn call-btn--end" id="btn-endcall"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 2.59 3.4z" transform="rotate(135 12 12)"/></svg></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PEOPLE PANEL -->
+            <section id="panel-members" class="panel panel--members">
+                <div class="members-header">
+                    <h2>Workspace Members</h2>
+                    <button class="btn btn--primary glow-btn" id="add-people-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Invite People</button>
+                </div>
+                <div class="members-grid" id="members-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ===== MODALS ===== -->
+    <!-- Create Channel Modal -->
+    <div class="modal-overlay" id="channel-modal-overlay">
+        <div class="modal glass-panel">
+            <div class="modal__header"><h3>Create Channel</h3><button class="icon-btn" id="channel-modal-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+            <div class="modal__body">
+                <div class="form-group"><label for="channel-name-input">Channel Name</label><input type="text" id="channel-name-input" placeholder="e.g. project-alpha" class="form-input"></div>
+                <div class="form-group"><label for="channel-desc-input">Description (optional)</label><input type="text" id="channel-desc-input" placeholder="What's this channel about?" class="form-input"></div>
+                <div class="form-group"><label>Invite Members</label><div class="invite-member-search"><input type="text" id="channel-invite-search" placeholder="Search people..." class="form-input"><div class="invite-results" id="channel-invite-results"></div></div><div class="invited-tags" id="channel-invited-tags"></div></div>
+            </div>
+            <div class="modal__footer"><button class="btn btn--ghost" id="channel-modal-cancel">Cancel</button><button class="btn btn--primary glow-btn" id="channel-modal-create">Create Channel</button></div>
+        </div>
+    </div>
+
+    <!-- New DM Modal -->
+    <div class="modal-overlay" id="dm-modal-overlay">
+        <div class="modal glass-panel">
+            <div class="modal__header"><h3>Direct Message</h3><button class="icon-btn" id="dm-modal-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+            <div class="modal__body">
+                <div class="form-group"><label>Search People</label><input type="text" id="dm-search" placeholder="Type a name..." class="form-input"><div class="dm-search-results" id="dm-search-results"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Member to Channel Modal -->
+    <div class="modal-overlay" id="add-member-modal-overlay">
+        <div class="modal glass-panel">
+            <div class="modal__header"><h3>Add Members</h3><button class="icon-btn" id="add-member-modal-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+            <div class="modal__body">
+                <div class="form-group"><label>Search People</label><input type="text" id="add-member-search" placeholder="Type a name..." class="form-input"><div class="add-member-results" id="add-member-results"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Profile Modal -->
+    <div class="modal-overlay" id="profile-view-overlay">
+        <div class="modal modal--profile glass-panel">
+            <div class="modal__header">
+                <h3>Profile</h3>
+                <button class="icon-btn" id="profile-view-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="profile-view__content">
+                <div class="profile-view__banner" id="profile-banner"></div>
+                <div class="profile-view__avatar-wrap">
+                    <div class="profile-view__avatar" id="profile-avatar-large"></div>
+                    <div class="profile-view__status-indicator"></div>
+                </div>
+                <div class="profile-view__details">
+                    <h2 class="profile-view__name" id="profile-name"></h2>
+                    <p class="profile-view__role" id="profile-role"></p>
+                    <div class="profile-view__meta">
+                        <div class="profile-meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span id="profile-email"></span></div>
+                        <div class="profile-meta-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Active Now</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button class="btn btn--primary btn--full glow-btn" id="profile-dm-btn">Send Message</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Own Profile Modal -->
+    <div class="modal-overlay" id="edit-profile-overlay">
+        <div class="modal glass-panel">
+            <div class="modal__header"><h3>Edit Profile</h3><button class="icon-btn" id="edit-profile-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+            <div class="modal__body">
+                <div class="avatar-upload-section"><div class="avatar-upload" id="edit-avatar-upload"><img id="edit-avatar-preview" src="" alt=""><div class="avatar-upload__overlay"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div><input type="file" id="edit-avatar-input" accept="image/*" hidden></div></div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <div class="form-input-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <input type="text" id="edit-firstname" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <div class="form-input-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            <input type="text" id="edit-lastname" class="form-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group"><label>Role</label><div class="form-input-wrap">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    <select id="edit-role" class="form-input form-select"><option value="Software Engineer">Software Engineer</option><option value="Frontend Developer">Frontend Developer</option><option value="Backend Developer">Backend Developer</option><option value="Full Stack Developer">Full Stack Developer</option><option value="UI/UX Designer">UI/UX Designer</option><option value="Product Manager">Product Manager</option><option value="Project Manager">Project Manager</option><option value="DevOps Engineer">DevOps Engineer</option><option value="QA Engineer">QA Engineer</option><option value="Data Scientist">Data Scientist</option><option value="Team Lead">Team Lead</option><option value="CTO">CTO</option><option value="Other">Other</option></select>
+                </div></div>
+            </div>
+            <div class="modal__footer"><button class="btn btn--ghost" id="edit-profile-cancel">Cancel</button><button class="btn btn--primary glow-btn" id="edit-profile-save">Save</button></div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-overlay">
+        <div class="modal glass-panel modal--lg">
+            <div class="modal__header">
+                <h3>Preferences & Settings</h3>
+                <button class="icon-btn" id="settings-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="modal__body settings-layout">
+                <div class="settings-sidebar">
+                    <button class="settings-tab active" data-tab="account">Account</button>
+                    <button class="settings-tab" data-tab="appearance">Appearance</button>
+                    <button class="settings-tab" data-tab="notifications">Notifications</button>
+                </div>
+                <div class="settings-content">
+                    <div class="settings-pane active" id="pane-account">
+                        <h4>Account Settings</h4>
+                        <div class="form-group"><label>Display Name</label><input type="text" id="settings-name" class="form-input"></div>
+                        <div class="form-group"><label>Email Address</label><input type="email" id="settings-email" class="form-input" disabled></div>
+                        <button class="btn btn--primary glow-btn" id="settings-save-account">Save Changes</button>
+                    </div>
+                    <div class="settings-pane" id="pane-appearance" style="display:none;">
+                        <h4>Appearance</h4>
+                        <div class="theme-options">
+                            <label class="theme-option"><input type="radio" name="theme" value="liquid-dark" checked> <span>Liquid Dark</span></label>
+                            <label class="theme-option"><input type="radio" name="theme" value="liquid-neon"> <span>Neon Pulse</span></label>
+                        </div>
+                    </div>
+                    <div class="settings-pane" id="pane-notifications" style="display:none;">
+                        <h4>Notifications</h4>
+                        <label class="toggle-switch"><input type="checkbox" checked> <span>Enable desktop notifications</span></label>
+                        <label class="toggle-switch"><input type="checkbox" checked> <span>Play sound on new message</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal-overlay" id="task-modal-overlay">
+        <div class="modal glass-panel">
+            <div class="modal__header"><h3>Create Task</h3><button class="icon-btn" id="task-modal-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+            <div class="modal__body">
+                <div class="form-group"><label>Title</label><input type="text" id="task-title-input" placeholder="Task title..." class="form-input"></div>
+                <div class="form-group"><label>Description</label><textarea id="task-desc-input" placeholder="Details..." class="form-input form-textarea"></textarea></div>
+                <div class="form-group"><label>Assignee</label>
+                    <div class="assignee-search-wrap">
+                        <input type="text" id="task-assignee-search" placeholder="Search members..." class="form-input" autocomplete="off">
+                        <input type="hidden" id="task-assignee-id" value="">
+                        <div class="assignee-results" id="task-assignee-results"></div>
+                        <div class="assigned-user-tag" id="task-assigned-tag" style="display:none;"></div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Priority</label><select id="task-priority-select" class="form-input form-select"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></div>
+                    <div class="form-group"><label>Category</label><select id="task-tag-select" class="form-input form-select"><option value="frontend">Frontend</option><option value="backend">Backend</option><option value="design">Design</option><option value="ux">UX</option></select></div>
+                </div>
+            </div>
+            <div class="modal__footer"><button class="btn btn--ghost" id="task-modal-cancel">Cancel</button><button class="btn btn--primary glow-btn" id="task-modal-create">Create</button></div>
+        </div>
+    </div>
+
+    <!-- Invite People Modal -->
+    <div class="modal-overlay" id="invite-modal-overlay">
+        <div class="modal glass-panel">
+            <div class="modal__header"><h3>Invite People to Workspace</h3><button class="icon-btn" id="invite-modal-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>
+            <div class="modal__body">
+                <p class="invite-info">Invite a user via email:</p>
+                <div class="form-group" style="flex-direction:row;gap:8px;margin-bottom:16px;">
+                    <input type="email" id="invite-email-input" class="form-input" placeholder="colleague@company.com" style="flex:1;">
+                    <button class="btn btn--primary glow-btn" id="send-invite-btn">Send Invite</button>
+                </div>
+                <p class="invite-info" style="margin-top:16px;border-top:1px solid rgba(255,255,255,0.05);padding-top:16px;">Or share this workspace link:</p>
+                <div class="invite-link-box glass-panel-inner">
+                    <span id="invite-link">http://127.0.0.1:8080</span>
+                    <button class="btn btn--small btn--primary" id="copy-invite-link">Copy</button>
+                </div>
+                <p class="invite-note">Anyone who signs up at this URL will automatically join your workspace.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="modal-overlay modal-overlay--lightbox" id="lightbox-overlay">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightbox-close"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            <div class="lightbox-media" id="lightbox-media"></div>
+            <div class="lightbox-info">
+                <span id="lightbox-filename"></span>
+                <a id="lightbox-download" href="#" download class="btn btn--small btn--ghost">Download</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Detail Modal (Jira Style) -->
+    <div class="modal-overlay" id="task-detail-overlay">
+        <div class="modal glass-panel modal--lg">
+            <div class="modal__header">
+                <div class="task-id-badge" id="detail-task-id">TASK-01</div>
+                <div class="modal__header-actions">
+                    <button class="icon-btn" id="task-detail-close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+                </div>
+            </div>
+            <div class="modal__body task-detail">
+                <div class="task-detail__main">
+                    <h2 contenteditable="true" id="detail-task-title" class="task-detail__title"></h2>
+                    <div class="task-detail__section">
+                        <h4>Description</h4>
+                        <textarea id="detail-task-desc" class="form-input form-textarea" placeholder="Add a description..."></textarea>
+                    </div>
+                    <div class="task-detail__section">
+                        <h4>Comments</h4>
+                        <div class="task-comments" id="task-comments-list"></div>
+                        <div class="comment-composer">
+                            <input type="text" id="task-comment-input" placeholder="Writre a comment..." class="form-input">
+                            <button class="btn btn--primary btn--small" id="add-comment-btn">Comment</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="task-detail__side">
+                    <div class="detail-side-item">
+                        <label>Status</label>
+                        <select id="detail-task-status" class="form-input form-select">
+                            <option value="todo">To Do</option>
+                            <option value="inprogress">In Progress</option>
+                            <option value="done">Done</option>
+                        </select>
+                    </div>
+                    <div class="detail-side-item">
+                        <label>Priority</label>
+                        <select id="detail-task-priority" class="form-input form-select">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="detail-side-item">
+                        <label>Category</label>
+                        <select id="detail-task-category" class="form-input form-select">
+                            <option value="frontend">Frontend</option>
+                            <option value="backend">Backend</option>
+                            <option value="design">Design</option>
+                            <option value="ux">UX</option>
+                        </select>
+                    </div>
+                    <div class="detail-side-item">
+                        <label>Assignee</label>
+                        <div class="assignee-search-wrap">
+                            <input type="text" id="detail-assignee-search" placeholder="Search members..." class="form-input" autocomplete="off">
+                            <input type="hidden" id="detail-task-assignee" value="">
+                            <div class="assignee-results" id="detail-assignee-results"></div>
+                            <div class="assigned-user-tag" id="detail-assigned-tag" style="display:none;"></div>
+                        </div>
+                    </div>
+                    <div class="detail-side-item">
+                        <label>Reporter</label>
+                        <div class="reporter-info" id="detail-task-reporter"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal__footer">
+                <button class="btn btn--ghost" id="task-detail-delete" style="color:#ef4444;">Delete Task</button>
+                <div style="flex:1"></div>
+                <button class="btn btn--primary glow-btn" id="task-detail-save">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
